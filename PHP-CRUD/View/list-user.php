@@ -25,11 +25,54 @@ $user = new User();
                         Add User
                     </div>
                     <div class="card-body">
-                        <form action="../controllers/action_user.php" method="post">
+                        <?php if (isset($_GET['edit'])){ 
+                            $get_id_edit = $_GET['edit'];
+                            $row = $user->getUserById($get_id_edit);
+                            if ($row) {
+                            ?>
+                            <form action="../controllers/action_user.php" method="post">
+                            <input type="text" class="form-control" name="user_id" value="<?php echo $row['user_id']; ?>" required>
+                            <div class="form-group">
+                                <label for="">First Name</label>
+                                <input type="text" class="form-control" name="fname" value="<?php echo $row['fname']; ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Last Name</label>
+                                <input type="text" class="form-control" name="lname" value="<?php echo $row['lname']; ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Email</label>
+                                <input type="text" class="form-control" name="email" value="<?php echo $row['email']; ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Address</label>
+                                <input type="text" class="form-control" name="address" value="<?php echo $row['address']; ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Username</label>
+                                <input type="text" class="form-control" name="username" value="<?php echo $row['username']; ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Password</label>
+                                <input type="text" class="form-control" name="password" value="<?php echo $row['password']; ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Status</label>
+                                <select name="status" id="status" class="form-select">
+                                    <option value="1" <?php if($row['active'] === 1){echo 'selected';} ?> >Actived</option>
+                                    <option value="0" <?php if($row['active'] === 0){echo 'selected';} ?>>Deactived</option>
+                                </select>
+                            </div>
+                            <div class="form-group pt-2">
+                                <button type="submit" name="edit" class="btn btn-primary">Edit</button>
+                                <button type="button" class="btn btn-secondary" onclick="window.location.href='list-user.php'">Cancel</button>
+                            </div>
+                            </form>
+                        <?php } } else { ?> 
+                            <form action="../controllers/action_user.php" method="post">
                             <div class="form-group">
                                 <label for="">First Name</label>
                                 <input type="text" class="form-control" name="fname" required>
-                                
                             </div>
                             <div class="form-group">
                                 <label for="">Last Name</label>
@@ -59,10 +102,11 @@ $user = new User();
                                 </select>
                             </div>
                             <div class="form-group pt-2">
-                                <button type="submit" name="add" class="btn btn-primary">ADD</button>
-                                <button type="button" class="btn btn-secondary" onclick="window.location.href='list-user.php'">ADD</button>
+                                <button type="submit" name="add" class="btn btn-primary">Add</button>
+                                <button type="button" class="btn btn-secondary" onclick="window.location.href='list-user.php'">Cancel</button>
                             </div>
-                        </form>
+                            </form>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -101,7 +145,7 @@ $user = new User();
                                         <td><?php echo $row['active']; ?></td>
                                         <td><?php echo $row['date_created']; ?></td>
                                         <td>
-                                            <a href="list_user.php?edit=<?php echo $row['user_id'] ?>" class="btn btn-success btn-sm">Edit</a>
+                                            <a href="list-user.php?edit=<?php echo $row['user_id'] ?>" class="btn btn-success btn-sm">Edit</a>
                                             <a href="../Controllers/action_user.php?delete=<?php echo $row['user_id']?>" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>

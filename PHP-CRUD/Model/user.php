@@ -26,14 +26,14 @@
 
         // Add user
         public function addUser($fname,$lname,$email,$address,$username,$password,$status) {
-            $sql = "INSERT INTO tbl_user SET fname = ?, lname = ?, email = ?, address = ?, username = ?, password = ?, actiive = ?, date_created = NOW()";
+            $sql = "INSERT INTO tbl_user SET fname = ?, lname = ?, email = ?, address = ?, username = ?, password = ?, active = ?, date_created = NOW()";
             $result = $this->conn->prepare($sql);
             $result->bind_param("ssssssi", $fname, $lname, $email, $address, $username, $password, $status);
             return $result->execute();
         }
 
         public function editUser($user_id, $fname,$lname,$email,$address,$username,$password,$status) {
-            $sql = "UPDATE tbl_user SET fname = ?, lname = ?, email = ?, address = ?, username = ?, password = ?, actiive = ? WHERE user_id = ?";
+            $sql = "UPDATE tbl_user SET fname = ?, lname = ?, email = ?, address = ?, username = ?, password = ?, active = ? WHERE user_id = ?";
             $result = $this->conn->prepare($sql);
             $result->bind_param("ssssssii", $fname, $lname, $email, $address, $username, $password, $status, $user_id);
             return $result->execute();
